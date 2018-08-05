@@ -1,0 +1,53 @@
+.ieditor-workspace{
+	margin:20px;
+}
+.edit-area{
+	width:800px;
+	position: absolute;
+	border:2px solid gold;
+	overflow: scroll;
+}
+#mainSvg{
+	height:500px;
+	width:700px;
+}
+@media only screen and (max-width: 600px) {
+    .edit-area {width:350px;height:350px;}
+    #mainSvg {width:350px;height:350px;}
+    .ieditor-workspace{margin:auto;}
+}
+.tool-area{
+	width:100%;
+	background: grey;
+	position: fixed;
+	bottom: 0px;
+	left:0px;
+	text-align: center;
+}
+.tool{
+	display: inline-block;
+	text-align: center;
+	background: #F5F525;
+	margin:5px;
+	width:60px;
+}
+.tool small{
+	display: block;
+}
+.tool i{
+	font-size:30px;
+}
+
+.effect-area{
+	background: lightgrey;
+
+}
+
+
+.effict-img{
+	height:100px;
+	width:100px;
+}
+
+
+
