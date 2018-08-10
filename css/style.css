@@ -2,18 +2,25 @@
 	margin:20px;
 }
 .edit-area{
-	width:800px;
-	position: absolute;
+	width:98%;
+	height:600px;
+	position: relative;
 	border:2px solid gold;
 	overflow: scroll;
+	padding: 20px;
 }
+
 #mainSvg{
-	height:500px;
-	width:700px;
+
+}
+#uploadPhoto{
+	position: absolute;
+	top:280px;
+	left:330px;
 }
 @media only screen and (max-width: 600px) {
-    .edit-area {width:350px;height:350px;}
-    #mainSvg {width:350px;height:350px;}
+    .edit-area {width:98%;height:350px;}
+    #uploadPhoto{top:180px;left:25%;};
     .ieditor-workspace{margin:auto;}
 }
 .tool-area{
@@ -43,11 +50,20 @@
 
 }
 
-
+.side-panel{
+	position: fixed;
+	right:-300px;
+	width:300px;
+	border: 2px solid blue;
+	height:80%;
+	bottom:20px;
+	transition:right 0.5s;
+}
 .effict-img{
 	height:100px;
 	width:100px;
 }
+
 
 
 
