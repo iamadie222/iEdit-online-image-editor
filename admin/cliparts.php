@@ -35,7 +35,7 @@ require "header.php";
 		                  <td><img src='../assets/{$value['id']}.png' style='width:100px;'></td>
 		                  <td>";
 		                  ?>
-		                  <a class="btn-sm btn-primary" href="clipart_update.php?id=<?php echo $value['id']; ?>">Update</a>
+		                  <a class="btn-sm btn-primary" href="clipart_update.php?id=<?php echo $value['id']; ?>&name=<?php echo $value['name']; ?>">Update</a>
 		                  <a class="btn-sm btn-danger" href="db_model.php?delete_assets=1&id=<?php echo $value['id']; ?>" >Delete</a>
 		                  <?php
 		                  echo "</td>

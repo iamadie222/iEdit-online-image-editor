@@ -76,18 +76,16 @@ else if(isset($_POST['update_assets'])){
 	  }
 	  
 	  if(empty($errors)==true){
-	  	
-	  	
-		$res=move_uploaded_file($file_tmp,"../assets/".$id.".png");
+	  	$res=move_uploaded_file($file_tmp,"../assets/".$id.".png");
 		if(!$res){
-			
+			return;
 		}
 		
 	  }else{
 		 header("Location: cliparts.php?error=".$errors[0]);
 	  }
 	}
-	$res=sql_nonquery("insert into assets (name,type) values ('{$name}','{$type}')");
+	$res=sql_nonquery("update assets set name='{$name}' where id={$id}");
 	if(!$res){
 		if($type=='clipart'){
 			header("Location: cliparts.php?error=".$res);
