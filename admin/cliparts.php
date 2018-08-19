@@ -1,10 +1,21 @@
 <?php
 require "../db.php";
 require "header.php";
+$start=0;
+$count=20;
+if(isset($_GET['start'])){
+	$start=$_GET['start'];
+}
+if(isset($_GET['count'])){
+	$count=$_GET['count'];
+}
+$total_items=sql_query("select count(id) as total from assets where type='clipart'")[0]['total'];
+
 ?>
 
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     	<?php 
+    	
     		if(isset($_GET['error'])){
     			echo '<div class="alert alert-danger">Error:'.$_GET['error'].'</div>';
     		}
@@ -27,7 +38,8 @@ require "header.php";
 
               <tbody>
               	<?php 
-              	$allCliparts=sql_query("select * from assets where type='clipart'");
+              	//echo "select * from assets where type='clipart' limit {$start} {$count}";
+              	$allCliparts=sql_query("select * from assets where type='clipart' limit {$start} ,{$count}");
               	foreach ($allCliparts as $key => $value) {
               		echo "<tr>
 		                  <td>{$value['id']}</td>
@@ -46,7 +58,26 @@ require "header.php";
                 
               </tbody>
             </table>
-          </div>
+          </div> <!-- Table Div ends -->
+        <ul class="pagination pagination-sm">
+			<li class="page-item"><a class="page-link" href="?start=<?php echo ($start-20 < 0)?0:$start-20; ?>">Previous</a></li>
+		  
+				<?php 
+					for($i=0;$i<$total_items;$i+=20){
+						$st=$i;
+						//$ed=$i+20;
+						$cnt=$i/20;
+						if($start/20 == $cnt){
+							echo "<li class='page-item active'><a class='page-link' href='?start={$st}'>{$cnt}</a></li>";
+						}
+						else{
+							echo "<li class='page-item'><a class='page-link' href='?start={$st}'>{$cnt}</a></li>";
+						}
+						
+					}
+				?>
+			<li class="page-item"><a class="page-link" href="?start=<?php echo ($start > $total_items)?$start:$start+20; ?>">Next</a></li>
+		</ul>
         </main>
 
 

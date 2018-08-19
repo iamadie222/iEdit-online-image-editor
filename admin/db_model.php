@@ -108,6 +108,9 @@ else if(isset($_POST['update_assets'])){
 //Delete Assets -----------------------------------------------------
 else if(isset($_GET['delete_assets'])){
 	$id=filter_data($_GET['id']);
+	if(is_file("../assets/{$id}.png")){
+		unlink("../assets/{$id}.png");
+	}
 	$res=sql_nonquery("delete from assets where id=".$id);
 	if(!$res){
 		
@@ -120,9 +123,27 @@ else if(isset($_GET['delete_assets'])){
 }
 
 //Insert Assets -----------------------------------------------------
-else if(isset($_POST['in_assets'])){
-	$name=filter_data($_POST['name']);
-	$type=filter_data($_POST['type']);
+else if(isset($_GET['test'])){
+	//echo "doing";
+	$dr=scandir("../assets/cliparts");
+	$row=sql_query("select max(id) from assets");
+	$next_id=(int)$row[0] +1;
+	foreach ($dr as $key => $value) {
+		if($value == "." || $value ==".."){
+			continue;
+		}
+		$name=explode('.', $value);
+		$res=sql_nonquery("insert into assets (id,name,type) value ({$next_id},'".ucfirst($name[0])."','clipart')");		
+		if(!$res){
+			echo "error ";
+			break;
+
+		}
+		copy("../assets/cliparts/{$value}","../assets/{$next_id}.png");
+		echo "--".$next_id.ucfirst($name[0])."<br>";
+		$next_id++;
+	}
+
 }
 
 
