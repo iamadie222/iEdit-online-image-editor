@@ -122,7 +122,9 @@ else if(isset($_GET['delete_assets'])){
 	exit;
 }
 
-//Insert Assets -----------------------------------------------------
+
+
+//Moving Assets auto -----------------------------------------------------
 else if(isset($_GET['test'])){
 	//echo "doing";
 	$dr=scandir("../assets/cliparts");

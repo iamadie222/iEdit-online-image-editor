@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $db=Array(
 	"host"=>"localhost",
 	"username"=>"root",
