@@ -1,3 +1,4 @@
+
 .ieditor-workspace{
 	margin:20px;
 }
@@ -8,6 +9,7 @@
 	border:2px solid gold;
 	overflow: scroll;
 	padding: 20px;
+	background: white;
 }
 
 #mainSvg{
@@ -58,12 +60,33 @@
 	height:80%;
 	bottom:20px;
 	transition:right 0.5s;
+	text-align: center;
+	overflow: scroll;
 }
-.effict-img{
+.effect-img{
 	height:100px;
 	width:100px;
+	display: inline-block;
+	padding:10px;
+	margin:10px;
+	cursor: pointer;
 }
 
 
 
 
+.asset-item{
+    display:inline-block;
+    padding:10px;
+}
+.asset-item img{
+    width:200px;
+    height:150px;
+    border:1px solid black;
+    border-radius:5px;
+    cursor:pointer;
+}
+#clipartBody {
+	height: 90%;
+	overflow: scroll;
+}

@@ -11,21 +11,21 @@ require "header.php";
         </ol>
         <div class="carousel-inner" role="listbox">
           <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url('img/editor1.jpg')">
+          <div class="carousel-item active" style="background-image: url('img/front_photo_3.png')">
             <div class="carousel-caption d-none d-md-block">
               <h3>Want to edit your Photos?</h3>
               <p>iEdit provide you facility to edit photos without installing any app on your device.</p>
             </div>
           </div>
           <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('img/editor1.jpg')">
+          <div class="carousel-item" style="background-image: url('img/front_photo_2.png')">
             <div class="carousel-caption d-none d-md-block">
               <h3>Drag and get started.</h3>
               <p>Just drag your photo to our <a href="ieditor.php">iEditor</a> and start editing it.</p>
             </div>
           </div>
           <!-- Slide Three - Set the background image for this slide in the line below 1900 x 1080 -->
-          <div class="carousel-item" style="background-image: url('img/editor1.jpg')">
+          <div class="carousel-item" style="background-image: url('img/front_photo_1.png')">
             <div class="carousel-caption d-none d-md-block">
               <h3>Want some extra?</h3>
               <p>We provide you free clipart that you can add to your photos and make them funkey.</p>
@@ -172,7 +172,7 @@ require "header.php";
           <p>Drag your image to right side section and get started with your first edit with iEdit</p>
         </div>
         <div class="col-lg-6">
-          <img class="img-fluid rounded" src="http://placehold.it/700x450" alt="">
+          <img class="img-fluid rounded" src="img/editor1.jpg" alt="">
         </div>
       </div>
       <!-- /.row -->
