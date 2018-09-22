@@ -78,7 +78,7 @@ $(document).ready(function(){
 				success:function(data){
 					if(data=="success"){
 						notie.alert({text: "Successfully Logged In.....",type:1});
-						window.location.assign("profile.php");
+						window.location.assign("my-gallery.php");
 					}
 					else{
 						if(data=="userNotFound"){

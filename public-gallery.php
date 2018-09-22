@@ -14,7 +14,7 @@ require "header.php";
 			            .$value['id'].'.png" alt=""></a>
 			            <div class="card-body">
 			              <h4 class="card-title">
-			                <a href="ieditor.php?user_photo='.$value['id'].'">Image name1</a>
+			                <a href="#">Image name1</a>
 			              </h4>
 			            </div>
 			          </div>

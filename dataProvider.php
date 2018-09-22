@@ -114,6 +114,21 @@ else if(isset($_POST['getUserPhoto'])){
 		echo json_encode($res);	
 	}
 }
+else if(isset($_POST['deleteUserPhoto'])){
+	$id=filter_data($_POST['deleteUserPhoto']);
+	$res=sql_query("select * from user_photos where id={$id}");
+	if($res[0]['user_id']==$_SESSION['userLogged']){
+		$res=sql_nonquery("delete from user_photos where id={$id}");
+		if($res){
+			deleteFile("user_photos/svg/{$id}.svg");
+			deleteFile("user_photos/png/{$id}.png");
+			echo "success";
+		}
+	}
+	else{
+		echo "notAllowed";
+	}
+}
 function filter_data($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -140,5 +155,13 @@ function savePng($path,$data){
     } else {
     	return false;
     }
+}
+function deleteFile($path){
+	if(is_file($path)){
+		if(unlink($path)){
+			return true;
+		}
+	}
+	return false;
 }
 ?>
