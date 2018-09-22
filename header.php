@@ -48,6 +48,8 @@ require_once "dbfiles/db.php";
             		//echo "welcome ".$_SESSION['userLogged'];
 			?>
 				<li class="nav-item">
+	              <a class="nav-link" href="my-gallery.php">My Gallery</a>
+	            </li><li class="nav-item">
 	              <a class="nav-link" href="logout.php">Logout</a>
 	            </li>
             <?php

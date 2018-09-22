@@ -1,12 +1,14 @@
 <?php 
-require "header.php";
+require_once "header.php";
+require_once "is_logged.php";
 ?>
 
-<h2>User's picks</h2>
+<h2>My Gallery</h2>
+	
 
       <div class="row">
-        <?php 
-			$userPhotos=sql_query("select * from user_photos");
+      	<?php 
+			$userPhotos=sql_query("select * from user_photos where user_id={$_SESSION['userLogged']}");
 			foreach ($userPhotos as $key => $value) {
 				echo '<div class="col-lg-4 col-sm-6 portfolio-item">
 			          <div class="card h-100">
@@ -22,7 +24,6 @@ require "header.php";
 			}
 
 		?>
-        
       </div>
       
 <?php 

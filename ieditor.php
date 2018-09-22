@@ -1,6 +1,14 @@
 <?php 
-require "header.php";
+require_once "header.php";
+require_once "is_logged.php";
+if(isset($_GET['user_photo'])){
+	echo "<script>window.user_photo={$_GET['user_photo']};</script>";
+}
+else{
+	echo "<script>window.user_photo=-1;</script>";
+}
 ?>
+
 <style type="text/css">
 	body{
 		background: #D3D3D3;

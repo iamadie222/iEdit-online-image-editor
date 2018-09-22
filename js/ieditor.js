@@ -1,7 +1,7 @@
 window.mainSvg=document.getElementById("mainSvg");
 window.sidePanel=document.getElementById("sidePanel");
 window.editArea=document.getElementById("editArea");
-window.user_photo=-1;
+
 $(document).ready(function(){
 	window.ie=new iEditor($("#mainSvg")[0]);
 	$("#uploadPhoto").change(onUploadPhoto);
@@ -11,6 +11,9 @@ $(document).ready(function(){
     $("#cropModel").on('shown.bs.modal',modelCropShown);
     $("#resizeModel").on('shown.bs.modal',modelResizeShown);
     loadAssets();
+    if(user_photo!= -1){
+    	loadUserPhoto();
+    }
 });
 
 function modelCropShown(){
@@ -67,13 +70,14 @@ function actionSave(){
         return;
     } 
     window.user_photo_name=prompt("Enter Name: ",window.user_photo_name);
-    getPngFromSvg($("#mainSvg")[0],mainSvg.height.baseVal.value,mainSvg.width.baseVal.value,function(imgUri){
+    getPngFromSvg($("#mainSvg")[0],500,500,function(imgUri){
         $.ajax({
             url: "dataProvider.php",
             type: "POST",
             data:{
             	saveUserPhoto:"true",
                 image: imgUri.replace('data:image/png;base64,', ''),
+                svg: mainSvg.outerHTML,
                 user_photo: window.user_photo,
                 user_photo_name: window.user_photo_name
             },
@@ -81,14 +85,24 @@ function actionSave(){
                 console.log(data);
                 if(data.indexOf("success") >=0){
                     window.user_photo=data.split(":")[1];
-                    alert("saved edit-area");
+                    notie.alert({ text: "Image Saved Successfully", type: 1 });
+                }
+                else if(data=="missingData"){
+                	notie.alert({ text: "Some Problem with Image", type: 3 });
+                }
+                else if(data=="problemSavingFile"){
+                	notie.alert({ text: "Can't write file", type: 3 });
+                }
+                else if(data=="problemInsertingDb"){
+                	notie.alert({ text: "Can't Insert Record to Database", type: 3 });
                 }
                 else{
-                    alert("problem in saving image");
+                    notie.alert({ text: "Unexpected Error", type: 3 });
                 }
                 
             },
             error:function(err){
+            	notie.alert({ text: "Problem With Request", type: 3 });
                 console.log(err.responseText);
             }
         });
@@ -134,6 +148,44 @@ function isLoaded(){
     return false;
 }
 
+function loadUserPhoto(){
+	$.ajax({
+        url: "dataProvider.php",
+        type:"POST",
+        data:{
+            getUserPhoto: "true",
+            user_photo: window.user_photo
+        },
+        success:function(data){
+        	if(data !="notFound"){
+        		var jData=JSON.parse(data);
+        		window.user_photo_name=jData[0].name;
+        		loadSvg(jData[0].id);
+        	}
+        	console.log(data,"up");
+        },
+        error:function(err){
+            console.log(err.responseText);
+        }
+    });
+}
+function loadSvg(id){
+	$.ajax({
+        url: "user_photos/svg/"+id+".svg",
+        dataType:"text",
+        data:{
+        },
+        success:function(data){
+        	mainSvg.parentElement.innerHTML=data;
+        	window.ie=new iEditor($("#mainSvg")[0]);
+        	window.mainSvg=document.getElementById("mainSvg");
+        	$(mainSvg).data("loaded","1");
+        },
+        error:function(err){
+            console.log(err.responseText);
+        }
+    });
+}
 
 function loadAssets(){
     $.ajax({

@@ -64,27 +64,81 @@ else if(isset($_GET['listFrames'])){
 else if(isset($_POST['saveUserPhoto'])){
 	$user_photo=filter_data($_POST['user_photo']);
 	$user_photo_name=filter_data($_POST['user_photo_name']);
+	
 	$image=$_POST['image'];
-
+	$svg=$_POST['svg'];
+	if(empty($svg) || empty($image)){
+		echo "dataMissing";
+		return;
+	}
+	
 	if($user_photo== "-1" ){
 		$nextId=dbNextId("user_photos","id");
 		$user_photo=$nextId;
 	}
 	
-	$inDb=sql_nonquery("insert into user_photos (id,name,user_id,status) values ({$user_photo},'{$user_photo_name}',{$_SESSION['userLogged']},1)");
-	if($inDb){
-
+	$numRows=sql_query("select count(id) as count from user_photos where id={$user_photo}");
+	$dbQueryRes;
+	
+	if($numRows[0]['count'] == 0){
+		//echo "insering";
+		$dbQueryRes=sql_nonquery("insert into user_photos (id,name,user_id,status) values ({$user_photo},'{$user_photo_name}',{$_SESSION['userLogged']},1)");
 	}
 	else{
-		
+		//echo "updating";
+		$dbQueryRes=sql_nonquery("update user_photos set name='{$user_photo_name}' where id={$user_photo}");
 	}
-	
-	
+	//echo $dbQueryRes;
+	if($dbQueryRes){
+		$saveSvg=saveFile("user_photos/svg/{$user_photo}.svg",$svg);
+		$savePng=savePng("user_photos/png/{$user_photo}.png",$image);
+		if($saveSvg && $savePng){
+			echo "success:{$user_photo}";
+		}
+		else{
+			echo "problemSavingFile";
+		}
+	}
+	else{
+		echo "problemInsertingDb";
+	}	
+}
+else if(isset($_POST['getUserPhoto'])){
+	$user_photo=filter_data($_POST['user_photo']);
+	//echo "select * from user_photos where id={$user_photo}";
+	$res=sql_query("select * from user_photos where id={$user_photo}");
+	if(sizeof($res)==0){
+		echo "notFound";
+	}
+	else{
+		echo json_encode($res);	
+	}
 }
 function filter_data($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
+}
+function saveFile($path, $data)
+{
+    $file = fopen($path, "w+");
+    if (!$file) {
+        return false;
+    } else if (fwrite($file, $data)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function savePng($path,$data){
+    $data = str_replace('data:image/png;base64,', '', $data);
+    $data = str_replace(' ', '+', $data);
+    $data = base64_decode($data);
+    if (file_put_contents($path, $data)) {
+        return true;
+    } else {
+    	return false;
+    }
 }
 ?>
