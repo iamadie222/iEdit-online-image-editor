@@ -20,8 +20,15 @@ else{
     	<div class="row">
 			<div class="container bg-info">
 				<form onsubmit="return false" class="form-inline" style="padding: 10px;">
-					<input type='text' id="fullColorPicker" />
-					<select class="form-control" style="margin-left:20px;">
+					
+					<div style="margin-right:50px;">
+						<span class="color-primary">Name: </span>
+						<input type="text" class="form-control" id="userPhotoName" >
+						<div class="btn btn-success" onclick="actionDownload()"><i class="fa fa-download"></i><small class="d-none d-sm-inline">Download</small></div>
+						<div class="btn btn-success" onclick="actionSave()"><i class="fa fa-save"></i><small class="d-none d-sm-inline">Save</small></div>
+					</div>
+					<input type='text' id="fullColorPicker"  />
+					<select class="form-control" style="margin-left:20px;" id="fontPicker" onchange="ie.setSelectedFont(this.value)">
 						<option value="Arial">Arial</option>
 						<option value="Arial Black">Arial Black</option>
 						<option value="Comic Sans MS">Comic Sans MS</option>
@@ -31,7 +38,15 @@ else{
 						<option value="Times New Roman">Times New Roman</option>
 						<option value="Verdana">Verdana</option>
 					</select>
+					<fieldset id="svgControls">
+						<button class="btn btn-secondery" onclick="ie.selectedMoveTop()" style="margin-left: 20px;"><img src="img/bring-front.png" height="20px;" ></button>
+						<button class="btn btn-secondery" onclick="ie.selectedMoveBottom()" style="margin-left: 20px;"><img src="img/send-backward.png" height="20px;" ></button>
+						<button class="btn btn-secondery" onclick="ie.deleteSelected()" style="margin-left: 20px;"><i class="fa fa-trash"></i></button>
+					</fieldset>
+					
+					
 				</form>
+				
 				
 			</div>
 
@@ -66,8 +81,7 @@ else{
 					<div class="btn  btn-info" data-toggle="modal" data-target="#frameModel"><i class="far fa-square"></i><small class="d-none d-sm-block">Frame</small></div>
 					<div class="btn btn-info" onclick="actionText()"><i class="fa fa-font"></i><small class="d-none d-sm-block">Add Text</small></div>
 
-					<div class="btn btn-success" onclick="actionDownload()"><i class="fa fa-download"></i><small class="d-none d-sm-block">Download</small></div>
-					<div class="btn btn-success" onclick="actionSave()"><i class="fa fa-save"></i><small class="d-none d-sm-block">Save</small></div>
+					
 				
 
 			
@@ -232,7 +246,7 @@ else{
     preferredFormat: "hex",
     localStorageKey: "spectrum.demo",
     move: function (color) {
-        
+        ie.setSelectedColor("#"+color.toHex());
     },
     show: function () {
     

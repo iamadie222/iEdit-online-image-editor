@@ -3,7 +3,7 @@ window.sidePanel=document.getElementById("sidePanel");
 window.editArea=document.getElementById("editArea");
 
 $(document).ready(function(){
-	window.ie=new iEditor($("#mainSvg")[0]);
+	createIE();
 	$("#uploadPhoto").change(onUploadPhoto);
 	$("#sidePanelToggle").click(onSidePanelToggle);
     $("#btnResizeNow").click(btnResizeClick);
@@ -16,6 +16,26 @@ $(document).ready(function(){
     }
 });
 
+function createIE(){
+	window.ie=new iEditor($("#mainSvg")[0]);
+	ie.setOnElementSelected(function(selectedSvg){
+		var sType=$(selectedSvg).attr("data-type");
+		if(sType=="25"){
+			$("#fullColorPicker").spectrum("enable");
+			$("#fontPicker")[0].disabled=false;
+		}
+		else{
+			$("#fullColorPicker").spectrum("disable");
+			$("#fontPicker")[0].disabled=true;
+		}
+		if(selectedSvg==null){
+			$("#svgControls")[0].disabled=true;
+		}
+		else{
+			$("#svgControls")[0].disabled=false;
+		}
+	});
+}
 function modelCropShown(){
     
 }
@@ -177,7 +197,7 @@ function loadSvg(id){
         },
         success:function(data){
         	mainSvg.parentElement.innerHTML=data;
-        	window.ie=new iEditor($("#mainSvg")[0]);
+        	createIE();
         	window.mainSvg=document.getElementById("mainSvg");
         	$(mainSvg).data("loaded","1");
         },

@@ -8,9 +8,11 @@ function iEditor(currSvg){
 	var resizing=false;
 	var rotating=false;
 	var mouseMoveElement=document;
+	var elementSeleccted=function(){}
 
 	document.onmouseup=clearMoving;
 	currSvg.onclick=currSvgClick;
+	document.onkeypress=svgKeyPress;
 	function createDivRect(x,y,height,width,isText){
 		var rectXY=toRectXY(x,y);
 		var rect=document.createElement("div");
@@ -74,6 +76,7 @@ function iEditor(currSvg){
 	function setAllMouseEvents(){
 		for(svg of svgs){
 			svg.onmousedown=svgClick;
+			
 			//svg.onmouseenter=svgClick;
 		}
 	}
@@ -102,6 +105,14 @@ function iEditor(currSvg){
     	selectedSvg=null;
     	//textToolbar.disabled=false;
     	currSvg.parentElement.removeAttribute("contenteditable");
+    	elementSeleccted(null);
+    }
+    function svgKeyPress(e){
+    	console.log("to",e);
+    	if(e.charCode==127){
+    		$(selectedSvg).remove();
+    		currSvgClick();
+    	}
     }
     function svgClick(e){
     	window.ee=e;
@@ -119,7 +130,7 @@ function iEditor(currSvg){
     	//selectedSvg.onmouseup=clearMoving;
 
         if($(this).find("#rectHmd").length==0){
-        	console.log("do");
+        	//console.log("do");
         	if(rectHmdVar){
         		$(rectHmdVar).remove();
         	}
@@ -146,7 +157,7 @@ function iEditor(currSvg){
     			textRectHmd.value=t.text();
             }
             rectHmdVar.onmousedown=rectHmdMouseDown;
-            
+            elementSeleccted(selectedSvg);
         }
         //currSvg.onmousemove=svgMouseMove;
     }
@@ -192,6 +203,9 @@ function iEditor(currSvg){
         }
     }
 
+	iEditor.prototype.setOnElementSelected=function(func){
+		elementSeleccted=func;
+	}
 
 	iEditor.prototype.addBackgroundImg=function(src,height,width){
 		$(currSvg).data("loaded","1");
