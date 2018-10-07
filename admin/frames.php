@@ -1,5 +1,5 @@
 <?php
-require "../db.php";
+require "../dbfiles/db.php";
 require "header.php";
 $start=0;
 $count=20;

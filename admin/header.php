@@ -1,4 +1,6 @@
-
+<?php 
+require_once "admin_logged.php";
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,7 +26,7 @@
       
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a class="nav-link" href="login.php?adminLogout">Sign out</a>
         </li>
       </ul>
 

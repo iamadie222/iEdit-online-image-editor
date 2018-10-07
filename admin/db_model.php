@@ -1,7 +1,9 @@
 <?php
-include "../db.php";
+require "../dbfiles/db.php";
 
 //Insert Assets -----------------------------------------------------
+
+
 if(isset($_POST['in_assets'])){
 	$name=filter_data($_POST['name']);
 	$type=filter_data($_POST['type']);
@@ -112,6 +114,24 @@ else if(isset($_GET['delete_assets'])){
 		unlink("../assets/{$id}.png");
 	}
 	$res=sql_nonquery("delete from assets where id=".$id);
+	if(!$res){
+		
+		header("Location: {$_SERVER['HTTP_REFERER']}?error=".$res);
+		exit;
+	
+	}
+	header("Location: ".$_SERVER['HTTP_REFERER']);
+	exit;
+}
+else if(isset($_GET['delete_user_photo'])){
+	$id=filter_data($_GET['id']);
+	if(is_file("../user_photos/png/{$id}.png")){
+		unlink("../user_photos/png/{$id}.png");
+	}
+	if(is_file("../user_photos/svg/{$id}.svg")){
+		unlink("../user_photos/svg/{$id}.svg");
+	}
+	$res=sql_nonquery("delete from user_photos where id=".$id);
 	if(!$res){
 		
 		header("Location: {$_SERVER['HTTP_REFERER']}?error=".$res);

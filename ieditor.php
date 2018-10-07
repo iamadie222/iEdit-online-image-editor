@@ -23,7 +23,7 @@ else{
 					
 					<div style="margin-right:50px;">
 						<span class="color-primary">Name: </span>
-						<input type="text" class="form-control" id="userPhotoName" >
+						<input type="text" class="form-control" id="userPhotoName" value="Untitled">
 						<div class="btn btn-success" onclick="actionDownload()"><i class="fa fa-download"></i><small class="d-none d-sm-inline">Download</small></div>
 						<div class="btn btn-success" onclick="actionSave()"><i class="fa fa-save"></i><small class="d-none d-sm-inline">Save</small></div>
 					</div>
@@ -38,10 +38,10 @@ else{
 						<option value="Times New Roman">Times New Roman</option>
 						<option value="Verdana">Verdana</option>
 					</select>
-					<fieldset id="svgControls">
-						<button class="btn btn-secondery" onclick="ie.selectedMoveTop()" style="margin-left: 20px;"><img src="img/bring-front.png" height="20px;" ></button>
-						<button class="btn btn-secondery" onclick="ie.selectedMoveBottom()" style="margin-left: 20px;"><img src="img/send-backward.png" height="20px;" ></button>
-						<button class="btn btn-secondery" onclick="ie.deleteSelected()" style="margin-left: 20px;"><i class="fa fa-trash"></i></button>
+					<fieldset id="svgControls" disabled="">
+						<button class="btn btn-secondery" onclick="ie.selectedMoveTop()" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move Upword" style="margin-left: 20px;"><img src="img/bring-front.png" height="20px;" ></button>
+						<button class="btn btn-secondery" onclick="ie.selectedMoveBottom()" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move Downword" style="margin-left: 20px;"><img src="img/send-backward.png" height="20px;" ></button>
+						<button class="btn btn-secondery" onclick="ie.deleteSelected()" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" style="margin-left: 20px;"><i class="fa fa-trash"></i></button>
 					</fieldset>
 					
 					
@@ -230,7 +230,7 @@ else{
 
 
 <script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/snap-svg/snap.svg.js"></script>
 <script src="vendor/color-picker/spectrum.js"></script>
 <script type="text/javascript">

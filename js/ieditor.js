@@ -3,6 +3,7 @@ window.sidePanel=document.getElementById("sidePanel");
 window.editArea=document.getElementById("editArea");
 
 $(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();  
 	createIE();
 	$("#uploadPhoto").change(onUploadPhoto);
 	$("#sidePanelToggle").click(onSidePanelToggle);
@@ -89,7 +90,8 @@ function actionSave(){
         notie.alert({ text: "Choose photo first", type: 2 });
         return;
     } 
-    window.user_photo_name=prompt("Enter Name: ",window.user_photo_name);
+    //window.user_photo_name=prompt("Enter Name: ",window.user_photo_name);
+    window.user_photo_name=$("#userPhotoName").val();
     getPngFromSvg($("#mainSvg")[0],500,500,function(imgUri){
         $.ajax({
             url: "dataProvider.php",
@@ -155,10 +157,7 @@ function insertFrame(e){
    
     getDataUri(e.src,function(imgUri){
         //console.log(imgUri);
-        window.tSvg=document.createElementNS("http://www.w3.org/2000/svg","svg");
-        Snap(tSvg).image(imgUri,0,0,200,150);
-        Snap(tSvg).attr({height:500,width:500,viewBox:"0 0 500 500",x:0,y:0});
-        ie.addSvgData(tSvg);
+       	ie.setFrameSrc(imgUri);
     });
 }
 function isLoaded(){
@@ -180,6 +179,7 @@ function loadUserPhoto(){
         	if(data !="notFound"){
         		var jData=JSON.parse(data);
         		window.user_photo_name=jData[0].name;
+        		$("#userPhotoName").val(user_photo_name);
         		loadSvg(jData[0].id);
         	}
         	console.log(data,"up");
@@ -197,8 +197,8 @@ function loadSvg(id){
         },
         success:function(data){
         	mainSvg.parentElement.innerHTML=data;
-        	createIE();
         	window.mainSvg=document.getElementById("mainSvg");
+        	createIE();
         	$(mainSvg).data("loaded","1");
         },
         error:function(err){

@@ -9,10 +9,25 @@ function iEditor(currSvg){
 	var rotating=false;
 	var mouseMoveElement=document;
 	var elementSeleccted=function(){}
-
+	var svgFrame=null;
 	document.onmouseup=clearMoving;
 	currSvg.onclick=currSvgClick;
 	document.onkeypress=svgKeyPress;
+	//getSetFrameElement();
+
+
+	function getSetFrameElement(){
+		if(mainSvg.getElementById("svgFrame")){
+			svgFrame=mainSvg.getElementById("svgFrame");
+		}
+		else{
+			var f=snap.image("",0,0,"100%","100%");
+			f.attr({
+				id:"svgFrame"
+			});
+			svgFrame=f.node;
+		}
+	}
 	function createDivRect(x,y,height,width,isText){
 		var rectXY=toRectXY(x,y);
 		var rect=document.createElement("div");
@@ -206,11 +221,19 @@ function iEditor(currSvg){
 	iEditor.prototype.setOnElementSelected=function(func){
 		elementSeleccted=func;
 	}
+	iEditor.prototype.setFrameSrc=function(imgSrc){
+		if(!svgFrame){
+			svgFrame=mainSvg.getElementById("svgFrame");
+			
+		}
+		Snap(svgFrame).attr({href:imgSrc});
+	}
 
 	iEditor.prototype.addBackgroundImg=function(src,height,width){
 		$(currSvg).data("loaded","1");
         window.te=snap.image(src,0,0,width,height);
 		snap.attr({viewBox:"0 0 "+width+" "+height,height:height,width:width});
+		getSetFrameElement();
 	}
     iEditor.prototype.addImg=function(src,height,width){
 		var g=Snap(currSvg).g();
