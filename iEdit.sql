@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 24, 2018 at 02:03 PM
+-- Generation Time: Oct 15, 2018 at 02:26 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.0.20
 
@@ -39,7 +39,6 @@ CREATE TABLE `assets` (
 --
 
 INSERT INTO `assets` (`id`, `name`, `type`) VALUES
-(1, 'asdf', 'frame'),
 (2, 'A10', 'clipart'),
 (3, 'A11', 'clipart'),
 (4, 'A12', 'clipart'),
@@ -373,7 +372,17 @@ INSERT INTO `assets` (`id`, `name`, `type`) VALUES
 (332, 'Yaban6', 'clipart'),
 (333, 'Yaban7', 'clipart'),
 (334, 'Yaban8', 'clipart'),
-(335, 'Yaban9', 'clipart');
+(335, 'Yaban9', 'clipart'),
+(336, 'frame1', 'frame'),
+(337, 'frame2', 'frame'),
+(338, 'frame3', 'frame'),
+(339, 'frame4', 'frame'),
+(340, 'frame5', 'frame'),
+(341, 'frame6', 'frame'),
+(342, 'frame7', 'frame'),
+(343, 'frame8', 'frame'),
+(344, 'farme9', 'frame'),
+(345, 'frame10', 'frame');
 
 -- --------------------------------------------------------
 
@@ -394,7 +403,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`) VALUES
-(1, 'hamid lohar', 'hmdlohar', 'hmdlohar@gmail.com', '20557818a590a772d01b434ff3346be5');
+(1, 'hamid lohar', 'hmdlohar', 'hmdlohar@gmail.com', '20557818a590a772d01b434ff3346be5'),
+(2, 'adie', 'iamadie222', 'iamaide222@gmail.com', '20557818a590a772d01b434ff3346be5');
 
 -- --------------------------------------------------------
 
@@ -409,6 +419,17 @@ CREATE TABLE `user_photos` (
   `status` int(11) NOT NULL,
   `path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_photos`
+--
+
+INSERT INTO `user_photos` (`id`, `name`, `user_id`, `status`, `path`) VALUES
+(5, 'lalol', 2, 1, ''),
+(6, 'ranweer topiwala', 1, 1, ''),
+(7, 'wohoooo', 1, 1, ''),
+(8, 'VarunDadhiWala', 1, 1, ''),
+(9, 'Shah with frame', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -452,17 +473,17 @@ ALTER TABLE `user_photos`
 -- AUTO_INCREMENT for table `assets`
 --
 ALTER TABLE `assets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=336;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_photos`
 --
 ALTER TABLE `user_photos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
